@@ -1,5 +1,17 @@
 #!/usr/bin/env python3
-from setuptools import setup
+import os, sys
+from setuptools import setup, find_packages
+
+# https://github.com/pypa/pip/issues/4187#issuecomment-452862842
+def read_requirements():
+    """Parse requirements from requirements.txt."""
+    reqs_path = os.path.join('.', 'requirements.txt')
+
+    with open(reqs_path, 'r') as f:
+        requirements = [line.rstrip() for line in f]
+
+    return requirements
+
 
 setup(
     name="tap-chatitive",
@@ -9,15 +21,7 @@ setup(
     url="http://simondata.com",
     classifiers=["Programming Language :: Python :: 3 :: Only"],
     py_modules=["tap_chatitive"],
-    install_requires=[
-        "singer-python==5.2.0",
-        'requests==2.18.4',
-        "pendulum==1.2.0",
-        "tap-kit==0.1.1"
-    ],
-    dependency_links=[
-        "https://github.com/Radico/tap-kit/tarball/master#egg=tap-kit-0.1.1",
-    ],
+    install_requires=read_requirements(),
     entry_points="""
     [console_scripts]
     tap-chatitive=tap_chatitive:main
