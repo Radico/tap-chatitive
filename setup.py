@@ -21,3 +21,4 @@ setup(
     """,
     packages=["tap_chatitive"],
     include_package_data=True,
+)
